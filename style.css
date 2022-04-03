@@ -16,7 +16,7 @@ body {
   font-weight: 400;
   height: 100vh;
   color: #333;
-  background-image: linear-gradient(to top left, #753682 0%, #bf2e34 100%);
+  background-image: linear-gradient(to top left, #d87e4d 0%, #e16a92 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +32,7 @@ main {
   filter: blur();
   box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
   border-radius: 9px;
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
 }
 
@@ -53,7 +53,6 @@ main {
   letter-spacing: 1px;
   word-spacing: 2px;
   font-weight: 300;
-  margin-bottom: 1rem;
 }
 
 .score {
@@ -61,6 +60,10 @@ main {
   font-weight: 300;
   color: #c7365f;
   margin-bottom: auto;
+}
+
+.player--active {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .player--active {
@@ -78,7 +81,7 @@ main {
 }
 
 .current {
-  background-color: #c7365f;
+  background-color: #de7f81;
   opacity: 0.8;
   border-radius: 9px;
   color: #fff;
@@ -92,7 +95,7 @@ main {
   text-transform: uppercase;
   margin-bottom: 1rem;
   font-size: 1.7rem;
-  color: #ddd;
+  color: rgb(249, 249, 249);
 }
 
 .current-score {
@@ -133,10 +136,13 @@ main {
   top: 4rem;
 }
 .btn--roll {
-  top: 39.3rem;
+  top: 35.3rem;
 }
 .btn--hold {
-  top: 46.1rem;
+  top: 41.8rem;
+}
+.btn--about {
+  top: 50rem;
 }
 
 .btn:active {
@@ -147,6 +153,72 @@ main {
 .btn:focus {
   outline: none;
 }
+
+/* POP-UP BTN */
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.popup {
+  width: 350px;
+  height: 280px;
+  padding: 30px 20px;
+  background: linear-gradient(to top left, #d87e4d 0%, #e16a92 100%);
+
+  border-radius: 15px;
+  box-sizing: border-box;
+  z-index: 2;
+  text-align: center;
+  opacity: 0;
+  top: -200%;
+  transform: translate(-50%, -50%) scale(0.5);
+  transition: opacity 300ms ease-in-out, top 1000ms ease-in-out,
+    transform 1000ms ease-in-out;
+}
+
+.popup.active {
+  opacity: 0.9;
+  top: 70%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 300ms cubic-bezier(0.18, 0.89, 0.43, 1.19);
+}
+
+.popup .description {
+  color: #222;
+  font-size: 15px;
+  padding: 35px;
+}
+
+.popup > div {
+  position: relative;
+  top: 10px;
+  opacity: 0;
+}
+.popup.active > div {
+  top: 0px;
+  opacity: 1;
+}
+
+.popup.active .title {
+  transition: all 300ms ease-in-out 300ms;
+}
+.popup.active .description {
+  transition: all 300ms ease-in-out 350ms;
+}
+.popup.active .dismiss-btn {
+  transition: all 300ms ease-in-out 400ms;
+}
+
+.icons {
+  padding-top: 4rem;
+  word-spacing: 8px;
+}
+
+/* DICE */
 
 .dice {
   position: absolute;
@@ -205,6 +277,90 @@ main {
   justify-self: center;
   width: 1.25rem;
 }
+
+/* DOT PLAYER TURN */
+
+.dot-player {
+  margin-bottom: 2rem;
+  margin-top: -3rem;
+  -webkit-animation: right 1s infinite ease-in-out;
+  -moz-animation: right 1s infinite ease-in-out;
+  animation: right 1s infinite ease-in-out;
+}
+
+@-webkit-keyframes right {
+  0% {
+    -webkit-transform: translate(-15px);
+  }
+  50% {
+    -webkit-transform: translate(15px);
+  }
+  100% {
+    -webkit-transform: translate(-15px);
+  }
+}
+
+@-webkit-keyframes left {
+  0% {
+    -webkit-transform: translate(15px);
+  }
+  50% {
+    -webkit-transform: translate(-15px);
+  }
+  100% {
+    -webkit-transform: translate(15px);
+  }
+}
+
+@-moz-keyframes right {
+  0% {
+    -moz-transform: translate(-15px);
+  }
+  50% {
+    -moz-transform: translate(15px);
+  }
+  100% {
+    -moz-transform: translate(-15px);
+  }
+}
+
+@-moz-keyframes left {
+  0% {
+    -moz-transform: translate(15px);
+  }
+  50% {
+    -moz-transform: translate(-15px);
+  }
+  100% {
+    -moz-transform: translate(15px);
+  }
+}
+
+@keyframes right {
+  0% {
+    transform: translate(-15px);
+  }
+  50% {
+    transform: translate(15px);
+  }
+  100% {
+    transform: translate(-15px);
+  }
+}
+
+@keyframes left {
+  0% {
+    transform: translate(15px);
+  }
+  50% {
+    transform: translate(-15px);
+  }
+  100% {
+    transform: translate(15px);
+  }
+}
+
+/* ROLLING DICE */
 
 .even-roll[data-roll='1'] {
   transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg);
@@ -323,6 +479,8 @@ main {
 [data-side='6'] .dot:nth-of-type(6) {
   grid-area: nine;
 }
+
+/* END GAME */
 
 .player--winner {
   background-color: #2f2f2f;

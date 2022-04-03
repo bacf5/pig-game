@@ -8,7 +8,8 @@ const score1El = document.getElementById('score--1');
 const current0El = document.getElementById('current--0');
 const current1El = document.getElementById('current--1');
 const currentDiceItem = document.querySelectorAll('.die-item');
-
+const playerDot0 = document.getElementById('dot0');
+const playerDot1 = document.getElementById('dot1');
 const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
@@ -32,6 +33,8 @@ const init = function () {
   player1El.classList.remove('player--winner');
   player0El.classList.add('player--active');
   player1El.classList.remove('player--active');
+  playerDot0.classList.remove('hidden');
+  playerDot1.classList.add('hidden');
 };
 init();
 
@@ -41,6 +44,8 @@ const switchPlayer = function () {
   activePlayer = activePlayer === 0 ? 1 : 0;
   player0El.classList.toggle('player--active');
   player1El.classList.toggle('player--active');
+  playerDot0.classList.toggle('hidden');
+  playerDot1.classList.toggle('hidden');
 };
 
 btnHold.addEventListener('click', function () {
@@ -53,7 +58,8 @@ btnHold.addEventListener('click', function () {
     if (scores[activePlayer] >= 100) {
       // Finish the game
       playing = false;
-      diceEl.classList.add('hidden');
+      // arreglar porque se pone hidden en btn tmb [BUG]
+      // diceEl.classList.add('hidden');
       document
         .querySelector(`.player--${activePlayer}`)
         .classList.add('player--winner');
@@ -96,3 +102,19 @@ function toggleClasses(die) {
 
 btnRoll.addEventListener('click', diceRoll);
 btnNew.addEventListener('click', init);
+
+//////////////////////////////
+
+document
+  .getElementById('open-popup-btn')
+  .addEventListener('click', function () {
+    document.getElementById('open-popup-btn').style.display = 'none';
+    document.getElementsByClassName('popup')[0].classList.add('active');
+  });
+
+document
+  .getElementById('dismiss-popup-btn')
+  .addEventListener('click', function () {
+    document.getElementById('open-popup-btn').style.display = 'block';
+    document.getElementsByClassName('popup')[0].classList.remove('active');
+  });
