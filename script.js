@@ -14,6 +14,9 @@ const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
+const btnAbout = document.getElementById('open-popup-btn');
+const btnDismiss = document.getElementById('dismiss-popup-btn');
+const rollSound = document.getElementById('roll-sound');
 
 let scores, currentScore, activePlayer, playing;
 
@@ -73,10 +76,11 @@ btnHold.addEventListener('click', function () {
   }
 });
 
-//////////////// new dice roll functionality
+//////////////// new dice roll animation
 
 function diceRoll() {
   if (playing) {
+    rollSound.play();
     // 1. Generating a random dice roll
     const dice = [...document.querySelectorAll('.die-list')];
     dice.map((die) => {
@@ -84,11 +88,13 @@ function diceRoll() {
       die.dataset.roll = +Math.trunc(Math.random() * 6) + 1;
       if (+die.dataset.roll !== 1) {
         // Add dice to current score
-        currentScore += +die.dataset.roll;
-        document.getElementById(`current--${activePlayer}`).textContent =
-          currentScore;
+        setTimeout(() => {
+          currentScore += +die.dataset.roll;
+          document.getElementById(`current--${activePlayer}`).textContent =
+            currentScore;
+        }, 1800);
       } else {
-        switchPlayer();
+        setTimeout(switchPlayer(), 1800);
       }
     });
   }
@@ -105,16 +111,12 @@ btnNew.addEventListener('click', init);
 
 //////////////////////////////
 
-document
-  .getElementById('open-popup-btn')
-  .addEventListener('click', function () {
-    document.getElementById('open-popup-btn').style.display = 'none';
-    document.getElementsByClassName('popup')[0].classList.add('active');
-  });
+btnAbout.addEventListener('click', function () {
+  btnAbout.style.display = 'none';
+  document.getElementsByClassName('popup')[0].classList.add('active');
+});
 
-document
-  .getElementById('dismiss-popup-btn')
-  .addEventListener('click', function () {
-    document.getElementById('open-popup-btn').style.display = 'block';
-    document.getElementsByClassName('popup')[0].classList.remove('active');
-  });
+btnDismiss.addEventListener('click', function () {
+  btnAbout.style.display = 'block';
+  document.getElementsByClassName('popup')[0].classList.remove('active');
+});
