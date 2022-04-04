@@ -94,7 +94,9 @@ function diceRoll() {
             currentScore;
         }, 1800);
       } else {
-        setTimeout(switchPlayer(), 1800);
+        setTimeout(() => {
+          switchPlayer();
+        }, 1800);
       }
     });
   }
